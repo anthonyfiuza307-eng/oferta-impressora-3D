@@ -413,6 +413,44 @@ ul {
   margin-bottom: 24px;
 }
 
+/* Ancoragem de Preço no Primeiro CTA (Hero Section) */
+.hero-price-anchor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.hero-price-old {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.hero-price-current {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.hero-price-highlight {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--gold-300);
+  text-shadow: 0 0 16px var(--gold-glow);
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
 .btn-cta {
   display: inline-flex;
   align-items: center;
@@ -1821,6 +1859,24 @@ ul {
   img {
     max-width: 100% !important;
     height: auto !important;
+  }
+
+  /* Ancoragem de Preço no Hero */
+  .hero-price-anchor {
+    margin-bottom: 8px;
+    gap: 4px 8px;
+  }
+
+  .hero-price-old {
+    font-size: 0.95rem;
+  }
+
+  .hero-price-current {
+    font-size: 1.05rem;
+  }
+
+  .hero-price-highlight {
+    font-size: 1.45rem;
   }
 
   /* Botões de CTA quase tela cheia no mobile */
