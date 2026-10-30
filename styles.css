@@ -247,6 +247,257 @@ ul {
 }
 
 /* ==========================================================================
+   DYNAMIC HOOK: JOGO DAS PORTAS COM DESCONTO (PRÉ-PÁGINA GAMIFICADA)
+   ========================================================================== */
+.doors-section {
+  position: relative;
+  padding: 24px 0 10px;
+  background: transparent;
+  z-index: 2;
+}
+
+.pd-wrap {
+  position: relative;
+  font-family: var(--font-sans);
+  max-width: 760px;
+  margin: 0 auto;
+  --door-0: #c9a24a;
+  --door-1: #3b5b73;
+  --door-2: #7a3b3b;
+}
+
+.pd-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pd-title {
+  background: linear-gradient(180deg, #182235 0%, #0d1322 100%);
+  color: #fff;
+  text-align: center;
+  padding: 18px 24px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  margin: 0;
+  font-size: clamp(1.02rem, 2.4vw, 1.25rem);
+  line-height: 1.4;
+  border: 1px solid rgba(229, 193, 88, 0.28);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.pd-title span {
+  color: var(--gold-300);
+  font-weight: 800;
+  text-shadow: 0 0 14px rgba(229, 193, 88, 0.4);
+}
+
+.pd-container {
+  display: flex;
+  gap: 24px;
+  background: #090e18;
+  padding: 34px 20px;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  justify-content: center;
+  flex-wrap: nowrap;
+  border: 1px solid rgba(229, 193, 88, 0.28);
+  border-top: none;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.55);
+}
+
+.pd-door {
+  width: 140px;
+  height: 240px;
+  perspective: 900px;
+  cursor: pointer;
+  display: block;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pd-door-frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pd-door-inside {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 40%, #fff6d8 0%, #f4e2a0 45%, #e6c66b 100%);
+}
+
+.pd-percent {
+  font-size: 32px;
+  font-weight: 800;
+  color: #a8471b;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.35s ease 0.35s, transform 0.35s ease 0.35s;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.pd-door-panel {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.4, 0.1, 0.2, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+}
+
+.pd-door-panel svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.pd-door[data-index="0"] .pd-door-panel svg rect:first-child { fill: var(--door-0); }
+.pd-door[data-index="1"] .pd-door-panel svg rect:first-child { fill: var(--door-1); }
+.pd-door[data-index="2"] .pd-door-panel svg rect:first-child { fill: var(--door-2); }
+
+.pd-door:hover .pd-door-panel {
+  transform: rotateY(-6deg);
+}
+
+.pd-wrap:has(.pd-radio:checked) .pd-door-panel,
+.pd-wrap.pd-checked .pd-door-panel {
+  transform: rotateY(-108deg);
+}
+
+.pd-wrap:has(.pd-radio:checked) .pd-percent,
+.pd-wrap.pd-checked .pd-percent {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pd-wrap:has(.pd-radio:checked) .pd-door,
+.pd-wrap.pd-checked .pd-door {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Porta 0 escolhida */
+#pd-r0:checked ~ [data-index="0"] .pd-percent::after { content: "62%"; }
+#pd-r0:checked ~ [data-index="0"] .pd-door-inside { background: radial-gradient(circle at 50% 40%, #fff9e6 0%, #ffe9a8 45%, #f3c94d 100%); }
+#pd-r0:checked ~ [data-index="0"] .pd-percent { color: #b8860b; }
+#pd-r0:checked ~ [data-index="1"] .pd-percent::after { content: "15%"; }
+#pd-r0:checked ~ [data-index="2"] .pd-percent::after { content: "30%"; }
+
+/* Porta 1 escolhida */
+#pd-r1:checked ~ [data-index="1"] .pd-percent::after { content: "62%"; }
+#pd-r1:checked ~ [data-index="1"] .pd-door-inside { background: radial-gradient(circle at 50% 40%, #fff9e6 0%, #ffe9a8 45%, #f3c94d 100%); }
+#pd-r1:checked ~ [data-index="1"] .pd-percent { color: #b8860b; }
+#pd-r1:checked ~ [data-index="0"] .pd-percent::after { content: "30%"; }
+#pd-r1:checked ~ [data-index="2"] .pd-percent::after { content: "15%"; }
+
+/* Porta 2 escolhida */
+#pd-r2:checked ~ [data-index="2"] .pd-percent::after { content: "62%"; }
+#pd-r2:checked ~ [data-index="2"] .pd-door-inside { background: radial-gradient(circle at 50% 40%, #fff9e6 0%, #ffe9a8 45%, #f3c94d 100%); }
+#pd-r2:checked ~ [data-index="2"] .pd-percent { color: #b8860b; }
+#pd-r2:checked ~ [data-index="0"] .pd-percent::after { content: "15%"; }
+#pd-r2:checked ~ [data-index="1"] .pd-percent::after { content: "30%"; }
+
+/* Popup de premiação */
+.pd-popup {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(9, 13, 22, 0.97);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid rgba(229, 193, 88, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
+  z-index: 10;
+}
+
+.pd-wrap:has(.pd-radio:checked) .pd-popup,
+.pd-wrap.pd-checked .pd-popup {
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 1.5s;
+}
+
+.pd-popup .pd-card {
+  text-align: center;
+  max-width: 360px;
+  color: #fff;
+}
+
+.pd-popup .pd-check {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--cta-gradient);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 14px;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
+}
+
+.pd-popup h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 3.2vw, 1.45rem);
+  color: var(--gold-300);
+  line-height: 1.3;
+}
+
+.pd-popup .pd-price {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin: 10px 0 20px;
+}
+
+.pd-popup .pd-price s {
+  color: var(--text-muted);
+}
+
+.pd-popup .pd-price strong {
+  color: var(--cta-green);
+  font-size: 1.5rem;
+}
+
+.pd-popup a.pd-cta {
+  display: block;
+  background: var(--cta-gradient);
+  color: #fff;
+  text-decoration: none;
+  padding: 16px 22px;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: clamp(0.92rem, 2.5vw, 1.05rem);
+  letter-spacing: 0.03em;
+  box-shadow: var(--shadow-cta);
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.pd-popup a.pd-cta:hover {
+  background: var(--cta-gradient-hover);
+  box-shadow: var(--shadow-cta-hover);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
    HERO SECTION (ALINHAMENTO CENTRALIZADO & BADGES REPOSICIONADOS)
    ========================================================================== */
 .hero-section {
@@ -1943,6 +2194,53 @@ ul {
 
   .modal-title {
     font-size: 1.28rem;
+  }
+
+  /* Jogo das Portas no celular */
+  .doors-section {
+    padding: 16px 0 6px;
+  }
+
+  .pd-title {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .pd-container {
+    padding: 22px 8px;
+    gap: 10px;
+  }
+
+  .pd-door {
+    width: clamp(86px, 27vw, 125px);
+    height: clamp(150px, 45vw, 215px);
+  }
+
+  .pd-percent {
+    font-size: clamp(20px, 5.5vw, 28px);
+  }
+
+  .pd-popup {
+    padding: 16px 12px;
+  }
+
+  .pd-popup .pd-card {
+    max-width: 320px;
+  }
+
+  .pd-popup h3 {
+    font-size: 1.15rem;
+  }
+
+  .pd-popup .pd-price {
+    font-size: 0.92rem;
+    margin: 8px 0 16px;
+  }
+
+  .pd-popup a.pd-cta {
+    padding: 14px 16px;
+    font-size: 0.88rem;
   }
 }
 

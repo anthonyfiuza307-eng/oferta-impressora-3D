@@ -93,6 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Dynamic Door Game Fallback & Interaction
+  const doorRadios = document.querySelectorAll('.pd-radio');
+  const pdWrap = document.querySelector('.pd-wrap');
+  if (doorRadios.length && pdWrap) {
+    doorRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        pdWrap.classList.add('pd-checked');
+      });
+    });
+  }
+
   // 4. MOBILE STICKY BAR VISIBILITY OBSERVER
   const pricingSection = document.getElementById('planos');
   const mobileBar = document.querySelector('.mobile-sticky-bar');
