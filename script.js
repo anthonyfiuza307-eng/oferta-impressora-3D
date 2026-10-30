@@ -196,6 +196,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Link de aceite do Upsell
+  const btnUpsellAccept = document.getElementById('btn-upsell-accept');
+  if (btnUpsellAccept) {
+    btnUpsellAccept.addEventListener('click', () => {
+      closeModal(modalUpsell);
+    });
+  }
+
+  // Link de aceite da retenção por inatividade
+  const btnInactivityAccept = document.getElementById('btn-inactivity-accept');
+  if (btnInactivityAccept) {
+    btnInactivityAccept.addEventListener('click', () => {
+      closeModal(modalInactivity);
+    });
+  }
+
   // ------------------------------------------
   // B) POPUP POR INATIVIDADE (150 segundos)
   // ------------------------------------------
@@ -204,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let hasInteractedWithCheckout = false;
 
   // Registrar se o usuário já clicou em algum checkout para não incomodar
-  document.querySelectorAll('a[href*="kiwify"], a[href*="placeholder"]').forEach(link => {
+  document.querySelectorAll('a[href*="zuptos.com.br"], a[href*="checkout"], a[href*="kiwify"], a[href*="placeholder"]').forEach(link => {
     link.addEventListener('click', () => {
       hasInteractedWithCheckout = true;
     });
@@ -234,4 +250,100 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   resetInactivityTimer();
+
+  // ==========================================
+  // 6. PRESERVAÇÃO E REPASSE DINÂMICO DE UTMS EM TEMPO DE EXECUÇÃO
+  // ==========================================
+  function getTrackedParams() {
+    const paramsMap = {};
+
+    // 1. Recuperar parâmetros salvos da sessão anterior
+    try {
+      const cached = sessionStorage.getItem('sacra3d_utm_params');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        Object.keys(parsed).forEach(k => {
+          if (parsed[k] !== undefined && parsed[k] !== null && parsed[k] !== '') {
+            paramsMap[k] = parsed[k];
+          }
+        });
+      }
+    } catch (e) {
+      // sessionStorage indisponível ou erro de parse
+    }
+
+    // 2. Ler parâmetros reais trazidos pelo visitante na URL da página atual
+    try {
+      const currentSearchParams = new URLSearchParams(window.location.search);
+      currentSearchParams.forEach((val, key) => {
+        if (val !== undefined && val !== null && val.trim() !== '') {
+          paramsMap[key] = val.trim();
+        }
+      });
+
+      // 3. Persistir parâmetros unificados na sessionStorage para não perder entre navegações
+      if (Object.keys(paramsMap).length > 0) {
+        sessionStorage.setItem('sacra3d_utm_params', JSON.stringify(paramsMap));
+      }
+    } catch (e) {
+      // tratamento seguro contra erros de runtime
+    }
+
+    return paramsMap;
+  }
+
+  function appendParamsToCheckoutUrl(originalUrl, paramsMap) {
+    if (!originalUrl || typeof originalUrl !== 'string') return originalUrl;
+    // Aplicar apenas em links de checkout (Zuptos)
+    if (!originalUrl.includes('zuptos.com.br')) return originalUrl;
+
+    try {
+      const url = new URL(originalUrl, window.location.origin);
+
+      // Concatenar e atualizar com os parâmetros reais trazidos pelo visitante
+      // Mantendo as tags base existentes caso o visitante não tenha trazido o parâmetro correspondente
+      Object.keys(paramsMap).forEach(key => {
+        const val = paramsMap[key];
+        if (val !== undefined && val !== null && val !== '') {
+          url.searchParams.set(key, val);
+        }
+      });
+
+      // Retornar a URL decodificando {{...}} para manter tags base do Facebook limpas se não preenchidas
+      return url.toString().replace(/%7B/gi, '{').replace(/%7D/gi, '}');
+    } catch (e) {
+      return originalUrl;
+    }
+  }
+
+  function updateAllCheckoutLinks() {
+    const trackedParams = getTrackedParams();
+    const checkoutLinks = document.querySelectorAll('a[href*="zuptos.com.br"]');
+
+    checkoutLinks.forEach(link => {
+      const currentHref = link.getAttribute('href');
+      if (currentHref) {
+        const newHref = appendParamsToCheckoutUrl(currentHref, trackedParams);
+        if (newHref && newHref !== currentHref) {
+          link.setAttribute('href', newHref);
+        }
+      }
+    });
+  }
+
+  // Executar imediatamente no carregamento da página
+  updateAllCheckoutLinks();
+
+  // Garantir atualização em tempo de execução ao clicar em qualquer ponto de conversão
+  document.addEventListener('click', (e) => {
+    const targetLink = e.target.closest('a[href*="zuptos.com.br"]');
+    if (targetLink) {
+      const trackedParams = getTrackedParams();
+      const currentHref = targetLink.getAttribute('href');
+      const updatedHref = appendParamsToCheckoutUrl(currentHref, trackedParams);
+      if (updatedHref) {
+        targetLink.setAttribute('href', updatedHref);
+      }
+    }
+  }, { capture: true });
 });
