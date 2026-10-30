@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desbloqueie seu Desconto Exclusivo — Coleção Sacra 3D</title>
+  <meta name="description" content="Escolha uma porta e descubra seu desconto exclusivo para a Coleção Sacra 3D (+500 modelos STL católicos).">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1493043236067742');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1493043236067742&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-main: #0d0f12;
+      --bg-card: #121722;
+      --bg-card-header: #182030;
+      --gold-300: #fae588;
+      --gold-400: #e5c158;
+      --gold-500: #d4af37;
+      --gold-glow: rgba(212, 175, 55, 0.35);
+      --cta-green: #10b981;
+      --cta-green-hover: #059669;
+      --cta-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --cta-gradient-hover: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+      --shadow-cta: 0 10px 25px rgba(16, 185, 129, 0.45);
+      --shadow-cta-hover: 0 14px 35px rgba(16, 185, 129, 0.65);
+      --door-0: #c9a24a;
+      --door-1: #3b5b73;
+      --door-2: #7a3b3b;
+      --font-serif: 'Cinzel', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background-color: var(--bg-main);
+      color: #f1f5f9;
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 50% 15%, rgba(229, 193, 88, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* Brilho de fundo sacro */
+    .bg-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      max-width: 90vw;
+      max-height: 90vw;
+      background: radial-gradient(circle, rgba(229, 193, 88, 0.12) 0%, rgba(13, 15, 18, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header / Badge Superior */
+    .pre-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(229, 193, 88, 0.1);
+      border: 1px solid rgba(229, 193, 88, 0.3);
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-400);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Widget Container */
+    .pd-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    .pd-radio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pd-title {
+      background: linear-gradient(180deg, #182235 0%, #0f1624 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 22px 24px;
+      border-radius: 16px 16px 0 0;
+      margin: 0;
+      font-size: clamp(1.08rem, 2.8vw, 1.35rem);
+      line-height: 1.45;
+      font-weight: 700;
+      border: 1px solid rgba(229, 193, 88, 0.28);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    .pd-title span.gold-text {
+      color: var(--gold-300);
+      font-weight: 800;
+      text-shadow: 0 0 16px rgba(229, 193, 88, 0.5);
+      display: inline;
+    }
+
+    .pd-container {
+      display: flex;
+      gap: 24px;
+      background: #090e18;
+      padding: 40px 24px;
+      border-radius: 0 0 16px 16px;
+      justify-content: center;
+      flex-wrap: nowrap;
+      border: 1px solid rgba(229, 193, 88, 0.28);
+      border-top: none;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+    }
+
+    .pd-door {
+      width: 140px;
+      height: 240px;
+      perspective: 900px;
+      cursor: pointer;
+      display: block;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s ease;
+    }
+
+    .pd-door:hover {
+      transform: translateY(-4px);
+    }
+
+    .pd-door-frame {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .pd-door-inside {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 40%, #fff6d8 0%, #f4e2a0 45%, #e6c66b 100%);
+    }
+
+    .pd-percent {
+      font-size: 34px;
+      font-weight: 800;
+      color: #a8471b;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.35s ease 0.35s, transform 0.35s ease 0.35s;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      font-family: var(--font-sans);
+    }
+
+    .pd-door-panel {
+      position: absolute;
+      inset: 0;
+      transform-origin: left center;
+      transition: transform 0.65s cubic-bezier(0.4, 0.1, 0.2, 1);
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+    }
+
+    .pd-door-panel svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .pd-door[data-index="0"] .pd-door-panel svg rect:first-child { fill: var(--door-0); }
+    .pd-door[data-index="1"] .pd-door-panel svg rect:first-child { fill: var(--door-1); }
+    .pd-door[data-index="2"] .pd-door-panel svg rect:first-child { fill: var(--door-2); }
+
+    .pd-door:hover .pd-door-panel {
+      transform: rotateY(-6deg);
+    }
+
+    .pd-wrap:has(.pd-radio:checked) .pd-door-panel,
+    .pd-wrap.pd-checked .pd-door-panel {
+      transform: rotateY(-108deg);
+    }
+
+    .pd-wrap:has(.pd-radio:checked) .pd-percent,
+    .pd-wrap.pd-checked .pd-percent {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .pd-wrap:has(.pd-radio:checked) .pd-door,
+    .pd-wrap.pd-checked .pd-door {
+      cursor: default;
+      pointer-events: none;
+      transform: none;
+    }
+
+    /* Porta 0 escolhida */
+    #pd-r0:checked ~ [data-index="0"] .pd-percent::after { content: "62%"; }
+    #pd-r0:checked ~ [data-index="0"] .pd-door-inside { background: radial-gradient(circle at 50% 40%, #fff9e6 0%, #ffe9a8 45%, #f3c94d 100%); }
+    #pd-r0:checked ~ [data-index="0"] .pd-percent { color: #b8860b; text-shadow: 0 0 16px rgba(255, 215, 0, 0.7); }
+    #pd-r0:checked ~ [data-index="1"] .pd-percent::after { content: "15%"; }
+    #pd-r0:checked ~ [data-index="2"] .pd-percent::after { content: "30%"; }
+
+    /* Porta 1 escolhida */
+    #pd-r1:checked ~ [data-index="1"] .pd-percent::after { content: "62%"; }
+    #pd-r1:checked ~ [data-index="1"] .pd-door-inside { background: radial-gradient(circle at 50% 40%, #fff9e6 0%, #ffe9a8 45%, #f3c94d 100%); }
+    #pd-r1:checked ~ [data-index="1"] .pd-percent { color: #b8860b; text-shadow: 0 0 16px rgba(255, 215, 0, 0.7); }
+    #pd-r1:checked ~ [data-index="0"] .pd-percent::after { content: "30%"; }
+    #pd-r1:checked ~ [data-index="2"] .pd-percent::after { content: "15%"; }
+
+    /* Porta 2 escolhida */
+    #pd-r2:checked ~ [data-index="2"] .pd-percent::after { content: "62%"; }
+    #pd-r2:checked ~ [data-index="2"] .pd-door-inside { background: radial-gradient(circle at 50% 40%, #fff9e6 0%, #ffe9a8 45%, #f3c94d 100%); }
+    #pd-r2:checked ~ [data-index="2"] .pd-percent { color: #b8860b; text-shadow: 0 0 16px rgba(255, 215, 0, 0.7); }
+    #pd-r2:checked ~ [data-index="0"] .pd-percent::after { content: "15%"; }
+    #pd-r2:checked ~ [data-index="1"] .pd-percent::after { content: "30%"; }
+
+    /* Modal / Popup de premiação */
+    .pd-popup {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(9, 13, 22, 0.98);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      border-radius: 16px;
+      padding: 28px 24px;
+      border: 1px solid rgba(229, 193, 88, 0.45);
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.9);
+      z-index: 10;
+    }
+
+    .pd-wrap:has(.pd-radio:checked) .pd-popup,
+    .pd-wrap.pd-checked .pd-popup {
+      opacity: 1;
+      pointer-events: auto;
+      transition-delay: 1.4s;
+    }
+
+    .pd-popup .pd-card {
+      text-align: center;
+      max-width: 440px;
+      width: 100%;
+      color: #fff;
+    }
+
+    .pd-popup .pd-check {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: var(--cta-gradient);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 800;
+      margin: 0 auto 16px;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.55);
+      animation: pulse-check 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-check {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+      50% { transform: scale(1.06); box-shadow: 0 0 32px rgba(16, 185, 129, 0.8); }
+    }
+
+    .pd-popup h3 {
+      margin: 0 0 10px;
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 3.4vw, 1.6rem);
+      color: var(--gold-300);
+      line-height: 1.3;
+      text-shadow: 0 0 14px rgba(229, 193, 88, 0.35);
+    }
+
+    .pd-popup .pd-price {
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      margin: 10px 0 22px;
+    }
+
+    .pd-popup .pd-price s {
+      color: #64748b;
+      margin-right: 6px;
+    }
+
+    .pd-popup .pd-price strong {
+      color: var(--cta-green);
+      font-size: 1.55rem;
+      font-weight: 800;
+      margin-left: 4px;
+    }
+
+    .pd-popup a.pd-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: var(--cta-gradient);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 18px 24px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: clamp(0.96rem, 2.5vw, 1.1rem);
+      letter-spacing: 0.03em;
+      box-shadow: var(--shadow-cta);
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .pd-popup a.pd-cta:hover {
+      background: var(--cta-gradient-hover);
+      box-shadow: var(--shadow-cta-hover);
+      transform: translateY(-2px);
+    }
+
+    .pd-note-secure {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    /* Footer discreto */
+    .pre-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #64748b;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Responsividade Mobile */
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .pre-brand-badge {
+        font-size: 0.75rem;
+        padding: 6px 14px;
+        margin-bottom: 14px;
+      }
+
+      .pd-title {
+        padding: 16px 14px;
+        font-size: 0.98rem;
+        line-height: 1.4;
+      }
+
+      .pd-container {
+        padding: 24px 10px;
+        gap: 10px;
+      }
+
+      .pd-door {
+        width: clamp(88px, 28vw, 125px);
+        height: clamp(155px, 46vw, 215px);
+      }
+
+      .pd-percent {
+        font-size: clamp(22px, 6vw, 30px);
+      }
+
+      .pd-popup {
+        padding: 20px 14px;
+      }
+
+      .pd-popup h3 {
+        font-size: 1.2rem;
+      }
+
+      .pd-popup .pd-price {
+        font-size: 0.95rem;
+        margin: 8px 0 18px;
+      }
+
+      .pd-popup .pd-price strong {
+        font-size: 1.35rem;
+      }
+
+      .pd-popup a.pd-cta {
+        padding: 15px 16px;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow"></div>
+
+  <!-- Identificador de marca / topo limpo -->
+  <div class="pre-brand-badge">
+    <span>✝️</span> COLEÇÃO SACRA 3D • OFERTA EXCLUSIVA
+  </div>
+
+  <!-- Widget Pré-LP Gamificada -->
+  <main class="pd-wrap" role="main">
+    <h1 class="pd-title">
+      Escolha uma porta e descubra qual delas tem <span class="gold-text">ATÉ 100% DE DESCONTO!</span>
+    </h1>
+
+    <div class="pd-container">
+      <input type="radio" name="pd-door" id="pd-r0" class="pd-radio" aria-label="Porta 1">
+      <input type="radio" name="pd-door" id="pd-r1" class="pd-radio" aria-label="Porta 2">
+      <input type="radio" name="pd-door" id="pd-r2" class="pd-radio" aria-label="Porta 3">
+
+      <!-- Porta 0 -->
+      <label for="pd-r0" class="pd-door" data-index="0" title="Clique para abrir a Porta 1">
+        <span class="pd-door-frame">
+          <span class="pd-door-inside"><span class="pd-percent"></span></span>
+          <span class="pd-door-panel">
+            <svg viewBox="0 0 120 200" preserveAspectRatio="none">
+              <rect x="2" y="2" width="116" height="196" rx="10" stroke="#00000022" stroke-width="2"/>
+              <rect x="14" y="16" width="92" height="72" rx="4" fill="#00000014" stroke="#ffffff33" stroke-width="2"/>
+              <rect x="14" y="100" width="92" height="84" rx="4" fill="#00000014" stroke="#ffffff33" stroke-width="2"/>
+              <circle cx="102" cy="102" r="5" fill="#ffe9a8" stroke="#00000033" stroke-width="1"/>
+            </svg>
+          </span>
+        </span>
+      </label>
+
+      <!-- Porta 1 -->
+      <label for="pd-r1" class="pd-door" data-index="1" title="Clique para abrir a Porta 2">
+        <span class="pd-door-frame">
+          <span class="pd-door-inside"><span class="pd-percent"></span></span>
+          <span class="pd-door-panel">
+            <svg viewBox="0 0 120 200" preserveAspectRatio="none">
+              <rect x="2" y="2" width="116" height="196" rx="10" stroke="#00000022" stroke-width="2"/>
+              <rect x="14" y="16" width="92" height="72" rx="4" fill="#00000014" stroke="#ffffff33" stroke-width="2"/>
+              <rect x="14" y="100" width="92" height="84" rx="4" fill="#00000014" stroke="#ffffff33" stroke-width="2"/>
+              <circle cx="102" cy="102" r="5" fill="#ffe9a8" stroke="#00000033" stroke-width="1"/>
+            </svg>
+          </span>
+        </span>
+      </label>
+
+      <!-- Porta 2 -->
+      <label for="pd-r2" class="pd-door" data-index="2" title="Clique para abrir a Porta 3">
+        <span class="pd-door-frame">
+          <span class="pd-door-inside"><span class="pd-percent"></span></span>
+          <span class="pd-door-panel">
+            <svg viewBox="0 0 120 200" preserveAspectRatio="none">
+              <rect x="2" y="2" width="116" height="196" rx="10" stroke="#00000022" stroke-width="2"/>
+              <rect x="14" y="16" width="92" height="72" rx="4" fill="#00000014" stroke="#ffffff33" stroke-width="2"/>
+              <rect x="14" y="100" width="92" height="84" rx="4" fill="#00000014" stroke="#ffffff33" stroke-width="2"/>
+              <circle cx="102" cy="102" r="5" fill="#ffe9a8" stroke="#00000033" stroke-width="1"/>
+            </svg>
+          </span>
+        </span>
+      </label>
+    </div>
+
+    <!-- Modal de Parabéns e Redirecionamento -->
+    <div class="pd-popup" role="dialog" aria-modal="true" aria-label="Resultado da premiação">
+      <div class="pd-card">
+        <div class="pd-check">✓</div>
+        <h3>Parabéns! Você desbloqueou 62% DE DESCONTO!</h3>
+        <div class="pd-price">De <s>R$ 86,90</s> por apenas <strong>R$ 32,90</strong></div>
+        <a id="pd-cta-btn" class="pd-cta" href="index.html#planos">
+          <span>RESGATAR MEU DESCONTO E ACESSAR AGORA</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div class="pd-note-secure">🔒 Desconto garantido • Liberação imediata após ativação</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="pre-footer">
+    © 2026 Coleção Sacra 3D. Todos os direitos reservados.
+  </footer>
+
+  <!-- Script de Repasse Automático de Parâmetros e Fallback -->
+  <script>
+    (function() {
+      // 1. Repassar parâmetros da URL (UTMs, fbclid, etc.) para o botão de checkout/destino
+      function forwardUrlParams() {
+        const currentSearch = window.location.search || '';
+        const ctaBtn = document.getElementById('pd-cta-btn');
+
+        if (ctaBtn) {
+          // Destino: index.html?utm_source=...#planos
+          ctaBtn.href = 'index.html' + currentSearch + '#planos';
+        }
+
+        // Salvar também em sessionStorage para redundância na página de destino
+        try {
+          if (currentSearch) {
+            const params = new URLSearchParams(currentSearch);
+            const paramsMap = {};
+            params.forEach((val, key) => {
+              if (val && val.trim() !== '') {
+                paramsMap[key] = val.trim();
+              }
+            });
+            if (Object.keys(paramsMap).length > 0) {
+              sessionStorage.setItem('sacra3d_utm_params', JSON.stringify(paramsMap));
+            }
+          }
+        } catch (e) {
+          // sessionStorage indisponível
+        }
+      }
+
+      // Executa imediatamente
+      forwardUrlParams();
+
+      // Garantir atualização no clique
+      const ctaBtn = document.getElementById('pd-cta-btn');
+      if (ctaBtn) {
+        ctaBtn.addEventListener('click', function(e) {
+          const currentSearch = window.location.search || '';
+          this.href = 'index.html' + currentSearch + '#planos';
+        });
+      }
+
+      // 2. Fallback de compatibilidade caso o navegador não suporte :has()
+      const doorRadios = document.querySelectorAll('.pd-radio');
+      const pdWrap = document.querySelector('.pd-wrap');
+      if (doorRadios.length && pdWrap) {
+        doorRadios.forEach(function(radio) {
+          radio.addEventListener('change', function() {
+            pdWrap.classList.add('pd-checked');
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

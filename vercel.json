@@ -2,6 +2,20 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/desconto",
+      "destination": "/porta.html"
+    },
+    {
+      "source": "/roleta",
+      "destination": "/porta.html"
+    },
+    {
+      "source": "/porta",
+      "destination": "/porta.html"
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
