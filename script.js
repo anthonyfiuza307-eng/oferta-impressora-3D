@@ -93,6 +93,116 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ==========================================
+  // CARROSSEL AUTOMÁTICO INFINITO (HERO SECTION)
+  // ==========================================
+  const carouselContainer = document.getElementById('hero-carousel-container');
+  const carouselTrack = document.getElementById('hero-carousel-track');
+
+  if (carouselContainer && carouselTrack) {
+    // Clonar os cards originais para garantir rotação infinita contínua
+    const originalCards = Array.from(carouselTrack.children);
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      carouselTrack.appendChild(clone);
+    });
+
+    let isPaused = false;
+    let isDragging = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let scrollPos = carouselContainer.scrollLeft;
+    const speed = 0.85; // Velocidade suave e fluida contínua
+
+    function getOriginalWidth() {
+      return carouselTrack.scrollWidth / 2;
+    }
+
+    function animateCarousel() {
+      if (!isPaused && !isDragging) {
+        scrollPos += speed;
+        const origWidth = getOriginalWidth();
+        if (origWidth > 0 && scrollPos >= origWidth) {
+          scrollPos -= origWidth;
+        }
+        carouselContainer.scrollLeft = scrollPos;
+      } else {
+        scrollPos = carouselContainer.scrollLeft;
+      }
+      requestAnimationFrame(animateCarousel);
+    }
+
+    // Iniciar animação
+    requestAnimationFrame(animateCarousel);
+
+    // Pausar no Hover (Desktop)
+    carouselContainer.addEventListener('mouseenter', () => {
+      isPaused = true;
+    });
+
+    carouselContainer.addEventListener('mouseleave', () => {
+      if (!isDragging) {
+        isPaused = false;
+      }
+    });
+
+    // Navegação Manual por Arraste com Mouse (Desktop)
+    carouselContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      isPaused = true;
+      startX = e.pageX - carouselContainer.offsetLeft;
+      scrollStart = carouselContainer.scrollLeft;
+      carouselContainer.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        isPaused = false;
+        carouselContainer.style.cursor = 'grab';
+        scrollPos = carouselContainer.scrollLeft;
+      }
+    });
+
+    carouselContainer.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - carouselContainer.offsetLeft;
+      const walk = (x - startX) * 1.6;
+      carouselContainer.scrollLeft = scrollStart - walk;
+      scrollPos = carouselContainer.scrollLeft;
+    });
+
+    // Navegação Manual por Toque / Swipe (Mobile)
+    let touchResumeTimeout = null;
+
+    carouselContainer.addEventListener('touchstart', () => {
+      isPaused = true;
+      if (touchResumeTimeout) clearTimeout(touchResumeTimeout);
+    }, { passive: true });
+
+    carouselContainer.addEventListener('touchend', () => {
+      touchResumeTimeout = setTimeout(() => {
+        isPaused = false;
+        scrollPos = carouselContainer.scrollLeft;
+      }, 1500);
+    }, { passive: true });
+
+    // Loop sem saltos na rolagem manual (Touch e Mouse)
+    carouselContainer.addEventListener('scroll', () => {
+      const origWidth = getOriginalWidth();
+      if (origWidth > 0) {
+        if (carouselContainer.scrollLeft >= origWidth) {
+          carouselContainer.scrollLeft -= origWidth;
+          scrollPos = carouselContainer.scrollLeft;
+        } else if (carouselContainer.scrollLeft <= 0) {
+          carouselContainer.scrollLeft += origWidth;
+          scrollPos = carouselContainer.scrollLeft;
+        }
+      }
+    }, { passive: true });
+  }
+
   // 4. MOBILE STICKY BAR VISIBILITY OBSERVER
   const pricingSection = document.getElementById('planos');
   const mobileBar = document.querySelector('.mobile-sticky-bar');
