@@ -371,6 +371,181 @@ ul {
   outline: none;
 }
 
+/* Banner de Smart Autoplay (Ativação de Áudio com 1 Clique) */
+.vsl-unmute-banner {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.95), rgba(245, 215, 110, 0.95));
+  color: #0b0f17;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.86rem;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 193, 88, 0.6);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: vslPulseGlow 2s infinite ease-in-out;
+  max-width: 92%;
+  text-align: center;
+  user-select: none;
+}
+
+@keyframes vslPulseGlow {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 193, 88, 0.6);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.04);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 30px rgba(229, 193, 88, 0.9);
+  }
+}
+
+.vsl-unmute-pulse {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vsl-icon-speaker {
+  animation: vslShake 1.5s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+@keyframes vslShake {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-10deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-8deg); }
+  80% { transform: rotate(8deg); }
+}
+
+/* Overlay Central de Pausa / Retomada */
+.vsl-pause-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  user-select: none;
+}
+
+.vsl-big-play-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(229, 193, 88, 0.92);
+  color: #0b0f17;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 25px rgba(229, 193, 88, 0.55);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.vsl-big-play-btn svg {
+  margin-left: 4px;
+}
+
+.vsl-pause-overlay:hover .vsl-big-play-btn {
+  transform: scale(1.1);
+  background: #ffd54a;
+}
+
+.vsl-pause-text {
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Barra de Controles Essenciais (Apenas Play/Pause e Áudio - Sem Barra de Avanço / Timeline) */
+.vsl-controls-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.88) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 18;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.vsl-container:hover .vsl-controls-bar,
+.vsl-controls-bar.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.vsl-ctrl-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vsl-ctrl-btn:hover {
+  background: rgba(229, 193, 88, 0.3);
+  border-color: #ffd54a;
+  color: #ffd54a;
+  transform: scale(1.08);
+}
+
+.vsl-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+}
+
+.vsl-live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ff4757;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ff4757;
+  animation: vslLivePulse 1.5s infinite;
+}
+
+@keyframes vslLivePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
 /* Container legado mantido por compatibilidade */
 .hero-media-wrapper {
   width: 100%;
@@ -1053,6 +1228,31 @@ ul {
   font-size: 1.1rem;
   flex-shrink: 0;
   font-weight: bold;
+}
+
+.main-product-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.main-product-mockup {
+  border-radius: 12px;
+  border: 1px solid rgba(229, 193, 88, 0.28);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55);
+  width: 100%;
+  max-width: 580px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main-product-mockup:hover {
+  transform: scale(1.02);
+  border-color: rgba(229, 193, 88, 0.5);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 193, 88, 0.15);
 }
 
 .rounded-img {
@@ -2203,6 +2403,35 @@ ul {
   .hero-media-wrapper {
     max-width: 100%;
     margin-bottom: 24px;
+  }
+
+  .vsl-unmute-banner {
+    font-size: 0.74rem;
+    padding: 8px 14px;
+    top: 10px;
+    max-width: 95%;
+  }
+
+  .vsl-controls-bar {
+    opacity: 1;
+    pointer-events: auto;
+    height: 44px;
+    padding: 0 10px;
+  }
+
+  .vsl-ctrl-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .vsl-big-play-btn {
+    width: 58px;
+    height: 58px;
+  }
+
+  .main-product-mockup {
+    max-width: 100%;
+    margin-top: 12px;
   }
 
   /* Ancoragem de Preço no Hero */

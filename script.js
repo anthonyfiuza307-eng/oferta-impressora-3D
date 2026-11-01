@@ -692,4 +692,176 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 100);
     }
   }
+
+  // ==========================================
+  // 9. VSL CONTROLLER (AUTOPLAY, SMART UNMUTE & TRAVA DE AVANÇO)
+  // ==========================================
+  const vslVideo = document.getElementById('vsl-video');
+  const vslContainer = document.getElementById('vsl-container');
+  const vslUnmuteBtn = document.getElementById('vsl-unmute-btn');
+  const vslPauseOverlay = document.getElementById('vsl-pause-overlay');
+  const vslPlayBtn = document.getElementById('vsl-play-btn');
+  const vslVolumeBtn = document.getElementById('vsl-volume-btn');
+  const vslControlsBar = document.getElementById('vsl-controls-bar');
+
+  if (vslVideo) {
+    let maxTimeWatched = 0;
+    let controlsHideTimeout = null;
+
+    // 1. Iniciar Autoplay Muted obrigatório para compatibilidade com navegadores
+    vslVideo.muted = true;
+    const playPromise = vslVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Fallback caso a política rígida do navegador bloqueie até o autoplay mudo
+        if (vslPauseOverlay) vslPauseOverlay.style.display = 'flex';
+      });
+    }
+
+    // 2. Trava de Avanço / Bloqueio de Seek (Anti-Adiantamento)
+    vslVideo.addEventListener('timeupdate', () => {
+      if (!vslVideo.seeking && vslVideo.currentTime > maxTimeWatched) {
+        maxTimeWatched = vslVideo.currentTime;
+      }
+    });
+
+    vslVideo.addEventListener('seeking', () => {
+      // Impede que o lead avance o vídeo para frente do ponto já assistido
+      if (vslVideo.currentTime > maxTimeWatched + 0.3) {
+        vslVideo.currentTime = maxTimeWatched;
+      }
+    });
+
+    // 3. Smart Unmute (Ativar Som com 1 Clique)
+    function activateAudio() {
+      vslVideo.muted = false;
+      vslVideo.volume = 1;
+      // Se estava nos primeiros 8 segundos, reinicia para o lead ouvir a introdução completa
+      if (vslVideo.currentTime < 8) {
+        vslVideo.currentTime = 0;
+        maxTimeWatched = 0;
+      }
+      vslVideo.play();
+      if (vslUnmuteBtn) vslUnmuteBtn.style.display = 'none';
+      updateVolumeIcon(true);
+      showControlsBriefly();
+    }
+
+    if (vslUnmuteBtn) {
+      vslUnmuteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        activateAudio();
+      });
+    }
+
+    // 4. Alternar Pausa e Reprodução
+    function togglePlayPause() {
+      if (vslVideo.paused) {
+        vslVideo.play();
+        if (vslPauseOverlay) vslPauseOverlay.style.display = 'none';
+        updatePlayIcon(true);
+      } else {
+        vslVideo.pause();
+        if (vslPauseOverlay) vslPauseOverlay.style.display = 'flex';
+        updatePlayIcon(false);
+      }
+      showControlsBriefly();
+    }
+
+    if (vslContainer) {
+      vslContainer.addEventListener('click', (e) => {
+        if (e.target.closest('#vsl-controls-bar')) return;
+        
+        // Se ainda estiver com o banner de ativar áudio, ativa o som no primeiro clique
+        if (vslVideo.muted && vslUnmuteBtn && vslUnmuteBtn.style.display !== 'none') {
+          activateAudio();
+          return;
+        }
+
+        togglePlayPause();
+      });
+    }
+
+    if (vslPauseOverlay) {
+      vslPauseOverlay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePlayPause();
+      });
+    }
+
+    if (vslPlayBtn) {
+      vslPlayBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePlayPause();
+      });
+    }
+
+    // 5. Controle de Volume / Mudo
+    function toggleMute() {
+      vslVideo.muted = !vslVideo.muted;
+      if (!vslVideo.muted && vslVideo.volume === 0) {
+        vslVideo.volume = 1;
+      }
+      if (!vslVideo.muted && vslUnmuteBtn) {
+        vslUnmuteBtn.style.display = 'none';
+      }
+      updateVolumeIcon(!vslVideo.muted);
+      showControlsBriefly();
+    }
+
+    if (vslVolumeBtn) {
+      vslVolumeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMute();
+      });
+    }
+
+    function updatePlayIcon(isPlaying) {
+      const iconPlay = document.querySelector('.vsl-icon-play');
+      const iconPause = document.querySelector('.vsl-icon-pause');
+      if (iconPlay && iconPause) {
+        if (isPlaying) {
+          iconPlay.style.display = 'none';
+          iconPause.style.display = 'block';
+        } else {
+          iconPlay.style.display = 'block';
+          iconPause.style.display = 'none';
+        }
+      }
+    }
+
+    function updateVolumeIcon(isAudioOn) {
+      const iconOn = document.querySelector('.vsl-icon-volume-on');
+      const iconOff = document.querySelector('.vsl-icon-volume-off');
+      if (iconOn && iconOff) {
+        if (isAudioOn) {
+          iconOn.style.display = 'block';
+          iconOff.style.display = 'none';
+        } else {
+          iconOn.style.display = 'none';
+          iconOff.style.display = 'block';
+        }
+      }
+    }
+
+    function showControlsBriefly() {
+      if (vslControlsBar) {
+        vslControlsBar.classList.add('show');
+        if (controlsHideTimeout) clearTimeout(controlsHideTimeout);
+        controlsHideTimeout = setTimeout(() => {
+          vslControlsBar.classList.remove('show');
+        }, 3000);
+      }
+    }
+
+    vslVideo.addEventListener('play', () => {
+      updatePlayIcon(true);
+      if (vslPauseOverlay) vslPauseOverlay.style.display = 'none';
+    });
+
+    vslVideo.addEventListener('pause', () => {
+      updatePlayIcon(false);
+      if (vslPauseOverlay) vslPauseOverlay.style.display = 'flex';
+    });
+  }
 });

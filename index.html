@@ -82,22 +82,76 @@
 
         <!-- Hero VSL Showcase (Player de Vídeo de Alta Conversão) -->
         <div class="vsl-wrapper">
-          <div class="vsl-container">
-            <!-- VSL PLAYER LOCAL: Reproduz o vídeo de vendas enviado (assets/videos/vsl.mp4) -->
+          <div class="vsl-container" id="vsl-container">
+            <!-- VSL PLAYER: Autoplay Inteligente com Trava de Avanço (Direct Response) -->
             <video 
+              id="vsl-video"
               class="vsl-video-player" 
-              controls 
+              autoplay
+              muted
               playsinline 
-              preload="metadata" 
+              preload="auto" 
               poster="assets/images/hero-mockup.jpg">
               <source src="assets/videos/vsl.mp4" type="video/mp4">
               Seu navegador não suporta a reprodução deste vídeo.
             </video>
 
+            <!-- Banner de Smart Autoplay (Ativação de Áudio com 1 Clique) -->
+            <div class="vsl-unmute-banner" id="vsl-unmute-btn" role="button" aria-label="Ativar som do vídeo">
+              <div class="vsl-unmute-pulse">
+                <svg class="vsl-icon-speaker" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <line x1="23" y1="9" x2="17" y2="15"></line>
+                  <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                <span>SEU VÍDEO JÁ COMEÇOU! CLIQUE PARA OUVIR 🔊</span>
+              </div>
+            </div>
+
+            <!-- Overlay de Pausa / Retomada -->
+            <div class="vsl-pause-overlay" id="vsl-pause-overlay" style="display: none;">
+              <button class="vsl-big-play-btn" aria-label="Continuar assistindo">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                </svg>
+              </button>
+              <span class="vsl-pause-text">Clique para continuar assistindo</span>
+            </div>
+
+            <!-- Barra de Controles Essenciais (Apenas Play/Pause e Áudio - Sem Barra de Avanço/Scrubber) -->
+            <div class="vsl-controls-bar" id="vsl-controls-bar">
+              <button class="vsl-ctrl-btn" id="vsl-play-btn" aria-label="Pausar / Reproduzir vídeo">
+                <svg class="vsl-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16"></rect>
+                  <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+                <svg class="vsl-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                  <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                </svg>
+              </button>
+
+              <div class="vsl-live-badge">
+                <span class="vsl-live-dot"></span>
+                <span>VÍDEO DE APRESENTAÇÃO</span>
+              </div>
+
+              <button class="vsl-ctrl-btn" id="vsl-volume-btn" aria-label="Ligar / Desligar Som">
+                <svg class="vsl-icon-volume-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <svg class="vsl-icon-volume-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <line x1="23" y1="9" x2="17" y2="15"></line>
+                  <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+              </button>
+            </div>
+
             <!-- COLE O CÓDIGO DA SUA VSL ABAIXO (VTURB / PANDA / YOUTUBE)
-                 Caso prefira usar embed externo, comente a tag <video> acima e descomente o iframe abaixo:
+                 Caso prefira usar embed externo com trava de controles (controls=0), comente o bloco local acima e utilize:
             <iframe 
-              src="https://www.youtube-nocookie.com/embed/SEU_VIDEO_AQUI?rel=0&modestbranding=1" 
+              src="https://www.youtube-nocookie.com/embed/SEU_VIDEO_AQUI?autoplay=1&mute=1&controls=0&disablekb=1&modestbranding=1&rel=0" 
               title="Apresentação Coleção Sacra 3D" 
               frameborder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -410,7 +464,7 @@
           </div>
         </div>
         <div class="main-product-img">
-          <img src="assets/images/gallery.jpg" alt="Exemplo das categorias do catálogo: Crucifixo barroco, São Miguel Arcanjo e Presépio em 3D" class="rounded-img" width="600" height="450" loading="lazy">
+          <img src="assets/images/hero-mockup.jpg" alt="Mockup oficial da Coleção Sacra 3D (+500 Arquivos STL Católicos) com notebook, smartphone e esculturas prontas para impressão" class="main-product-mockup" width="680" height="380" loading="lazy">
         </div>
       </div>
 
