@@ -456,4 +456,240 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }, { capture: true });
+
+  // ==========================================
+  // 8. CARROSSEL DE PRINTS DE CLIENTES (PROVA SOCIAL)
+  // ==========================================
+  const printsContainer = document.getElementById('prints-carousel-container');
+  const printsTrack = document.getElementById('prints-carousel-track');
+  const printsPrevBtn = document.getElementById('prints-prev');
+  const printsNextBtn = document.getElementById('prints-next');
+  const printsDotsContainer = document.getElementById('prints-dots');
+
+  if (printsContainer && printsTrack) {
+    const originalCards = Array.from(printsTrack.querySelectorAll('.prints-card'));
+    const totalOriginal = originalCards.length;
+    const dots = printsDotsContainer ? Array.from(printsDotsContainer.querySelectorAll('.prints-dot')) : [];
+
+    if (totalOriginal > 0) {
+      // Clones para permitir looping infinito contínuo e suave
+      const clonesBefore = originalCards.map(c => c.cloneNode(true));
+      const clonesAfter = originalCards.map(c => c.cloneNode(true));
+
+      clonesBefore.forEach(clone => {
+        clone.setAttribute('aria-hidden', 'true');
+        printsTrack.insertBefore(clone, originalCards[0]);
+      });
+
+      clonesAfter.forEach(clone => {
+        clone.setAttribute('aria-hidden', 'true');
+        printsTrack.appendChild(clone);
+      });
+
+      let currentTrackIndex = totalOriginal;
+      let autoplayTimer = null;
+      const AUTOPLAY_MS = 3500;
+
+      function updatePrintsCarousel(animate = true) {
+        const allCards = printsTrack.querySelectorAll('.prints-card');
+        if (!allCards || allCards.length === 0) return;
+
+        if (animate) {
+          printsTrack.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
+        } else {
+          printsTrack.style.transition = 'none';
+        }
+
+        const targetCard = allCards[currentTrackIndex];
+        if (!targetCard) return;
+
+        const containerWidth = printsContainer.clientWidth;
+        const cardOffset = targetCard.offsetLeft;
+        const cardWidth = targetCard.offsetWidth;
+        const translateX = (containerWidth / 2) - (cardOffset + cardWidth / 2);
+
+        printsTrack.style.transform = `translateX(${translateX}px)`;
+
+        allCards.forEach((card, idx) => {
+          if (idx === currentTrackIndex) {
+            card.classList.add('active');
+          } else {
+            card.classList.remove('active');
+          }
+        });
+
+        const realIndex = ((currentTrackIndex - totalOriginal) % totalOriginal + totalOriginal) % totalOriginal;
+        dots.forEach((dot, idx) => {
+          if (idx === realIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      // Loop sem salto na finalização da animação
+      printsTrack.addEventListener('transitionend', () => {
+        if (currentTrackIndex >= totalOriginal * 2) {
+          currentTrackIndex -= totalOriginal;
+          updatePrintsCarousel(false);
+        } else if (currentTrackIndex < totalOriginal) {
+          currentTrackIndex += totalOriginal;
+          updatePrintsCarousel(false);
+        }
+      });
+
+      function startPrintsAutoplay() {
+        stopPrintsAutoplay();
+        autoplayTimer = setInterval(() => {
+          currentTrackIndex++;
+          updatePrintsCarousel(true);
+        }, AUTOPLAY_MS);
+      }
+
+      function stopPrintsAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      if (printsNextBtn) {
+        printsNextBtn.addEventListener('click', () => {
+          stopPrintsAutoplay();
+          currentTrackIndex++;
+          updatePrintsCarousel(true);
+          startPrintsAutoplay();
+        });
+      }
+
+      if (printsPrevBtn) {
+        printsPrevBtn.addEventListener('click', () => {
+          stopPrintsAutoplay();
+          currentTrackIndex--;
+          updatePrintsCarousel(true);
+          startPrintsAutoplay();
+        });
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const targetIndex = parseInt(dot.getAttribute('data-index'), 10);
+          if (!isNaN(targetIndex)) {
+            stopPrintsAutoplay();
+            currentTrackIndex = totalOriginal + targetIndex;
+            updatePrintsCarousel(true);
+            startPrintsAutoplay();
+          }
+        });
+      });
+
+      // Pausar rotação no hover
+      printsContainer.addEventListener('mouseenter', stopPrintsAutoplay);
+      printsContainer.addEventListener('mouseleave', startPrintsAutoplay);
+
+      // Suporte a Touch Swipe no Mobile
+      let dragStartX = 0;
+      let dragStartY = 0;
+      let dragTranslateX = 0;
+      let isDragging = false;
+      let isHorizontalSwipe = false;
+
+      function getCurrentTranslateX() {
+        const style = window.getComputedStyle(printsTrack);
+        const matrix = new WebKitCSSMatrix(style.transform);
+        return matrix.m41;
+      }
+
+      printsContainer.addEventListener('touchstart', (e) => {
+        stopPrintsAutoplay();
+        const touch = e.touches[0];
+        dragStartX = touch.clientX;
+        dragStartY = touch.clientY;
+        dragTranslateX = getCurrentTranslateX();
+        isDragging = true;
+        isHorizontalSwipe = false;
+        printsTrack.style.transition = 'none';
+      }, { passive: true });
+
+      printsContainer.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        const diffX = touch.clientX - dragStartX;
+        const diffY = touch.clientY - dragStartY;
+
+        if (!isHorizontalSwipe) {
+          if (Math.abs(diffY) > Math.abs(diffX)) {
+            isDragging = false;
+            return;
+          }
+          isHorizontalSwipe = true;
+        }
+
+        printsTrack.style.transform = `translateX(${dragTranslateX + diffX}px)`;
+      }, { passive: true });
+
+      printsContainer.addEventListener('touchend', (e) => {
+        if (!isDragging && !isHorizontalSwipe) {
+          startPrintsAutoplay();
+          return;
+        }
+        const touch = e.changedTouches[0];
+        const diffX = touch.clientX - dragStartX;
+        isDragging = false;
+        isHorizontalSwipe = false;
+
+        if (diffX < -45) {
+          currentTrackIndex++;
+        } else if (diffX > 45) {
+          currentTrackIndex--;
+        }
+        updatePrintsCarousel(true);
+        setTimeout(startPrintsAutoplay, 1500);
+      });
+
+      // Arraste com Mouse no Desktop
+      let mouseStartX = 0;
+      let isMouseDown = false;
+
+      printsContainer.addEventListener('mousedown', (e) => {
+        stopPrintsAutoplay();
+        mouseStartX = e.clientX;
+        dragTranslateX = getCurrentTranslateX();
+        isMouseDown = true;
+        printsTrack.style.transition = 'none';
+        printsContainer.style.cursor = 'grabbing';
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isMouseDown) return;
+        const diffX = e.clientX - mouseStartX;
+        printsTrack.style.transform = `translateX(${dragTranslateX + diffX}px)`;
+      });
+
+      window.addEventListener('mouseup', (e) => {
+        if (!isMouseDown) return;
+        isMouseDown = false;
+        printsContainer.style.cursor = 'grab';
+        const diffX = e.clientX - mouseStartX;
+        if (diffX < -45) {
+          currentTrackIndex++;
+        } else if (diffX > 45) {
+          currentTrackIndex--;
+        }
+        updatePrintsCarousel(true);
+        setTimeout(startPrintsAutoplay, 1500);
+      });
+
+      window.addEventListener('resize', () => {
+        updatePrintsCarousel(false);
+      });
+
+      // Iniciar após renderização
+      setTimeout(() => {
+        updatePrintsCarousel(false);
+        startPrintsAutoplay();
+      }, 100);
+    }
+  }
 });

@@ -80,13 +80,33 @@
           <p>Tenha sempre o que imprimir para vender na sua cidade, em igrejas, feiras e lojas de artigos religiosos, ou pela internet.</p>
         </div>
 
-        <!-- Hero Media Showcase -->
-        <div class="hero-media-wrapper">
-          <div class="hero-media-card">
-            <img src="assets/images/hero-mockup.jpg" alt="Mockup profissional da Coleção Sacra 3D com +500 modelos católicos prontos para fatiar e imprimir" class="hero-main-img" width="650" height="363" loading="eager">
+        <!-- Hero VSL Showcase (Player de Vídeo de Alta Conversão) -->
+        <div class="vsl-wrapper">
+          <div class="vsl-container">
+            <!-- VSL PLAYER LOCAL: Reproduz o vídeo de vendas enviado (assets/videos/vsl.mp4) -->
+            <video 
+              class="vsl-video-player" 
+              controls 
+              playsinline 
+              preload="metadata" 
+              poster="assets/images/hero-mockup.jpg">
+              <source src="assets/videos/vsl.mp4" type="video/mp4">
+              Seu navegador não suporta a reprodução deste vídeo.
+            </video>
+
+            <!-- COLE O CÓDIGO DA SUA VSL ABAIXO (VTURB / PANDA / YOUTUBE)
+                 Caso prefira usar embed externo, comente a tag <video> acima e descomente o iframe abaixo:
+            <iframe 
+              src="https://www.youtube-nocookie.com/embed/SEU_VIDEO_AQUI?rel=0&modestbranding=1" 
+              title="Apresentação Coleção Sacra 3D" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+            -->
           </div>
           
-          <!-- Diferenciais Reposicionados Logo Abaixo da Imagem -->
+          <!-- Diferenciais Reposicionados Logo Abaixo do Player (Sem Poluir o Vídeo) -->
           <div class="hero-image-badges">
             <div class="image-badge-card">
               <span class="badge-icon">✨</span>
@@ -245,6 +265,107 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PROVA SOCIAL / CARROSSEL DE DEPOIMENTOS (PRINTS WHATSAPP)
+       ========================================== -->
+  <section class="prints-testimonials-section" id="depoimentos">
+    <div class="container">
+      
+      <div class="section-header">
+        <div class="section-tag prints-tag">
+          <span class="prints-tag-star">⭐</span> RESULTADOS REAIS
+        </div>
+        <h2 class="section-title">Quem Imprime, Lucra: <span class="gold-gradient">Veja o Que Nossos Clientes Dizem</span></h2>
+        <p class="section-subtitle">Relatos de quem já colocou os arquivos na mesa, economizou tempo no fatiamento e já está faturando com encomendas.</p>
+      </div>
+
+      <div class="prints-carousel-wrapper">
+        <!-- Botão Navegação Anterior -->
+        <button class="prints-nav-btn prev" id="prints-prev" aria-label="Depoimento anterior">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+
+        <!-- Container do Carrossel de Prints -->
+        <div class="prints-carousel-container" id="prints-carousel-container">
+          <div class="prints-carousel-track" id="prints-carousel-track">
+            
+            <!-- Print 1: Mauricio Aluno -->
+            <div class="prints-card" data-index="0">
+              <div class="prints-card-inner">
+                <img src="assets/images/depoimentos/depoimento-1.jpg" alt="Depoimento no WhatsApp de Mauricio: organização das pastas economiza horas no fatiador" class="prints-img" loading="lazy" width="472" height="1024">
+              </div>
+            </div>
+
+            <!-- Print 2: Filipe Aluno -->
+            <div class="prints-card" data-index="1">
+              <div class="prints-card-inner">
+                <img src="assets/images/depoimentos/depoimento-2.jpg" alt="Depoimento no WhatsApp de Filipe: peça vendida por R$ 140 com custo de filamento menor que R$ 12" class="prints-img" loading="lazy" width="472" height="1024">
+              </div>
+            </div>
+
+            <!-- Print 3: Mariana Aluna -->
+            <div class="prints-card" data-index="2">
+              <div class="prints-card-inner">
+                <img src="assets/images/depoimentos/depoimento-3.jpg" alt="Depoimento no WhatsApp de Mariana: 6 crucifixos vendidos em 2 horas e 10 novas encomendas" class="prints-img" loading="lazy" width="472" height="1024">
+              </div>
+            </div>
+
+            <!-- Print 4: Carlos Aluno -->
+            <div class="prints-card" data-index="3">
+              <div class="prints-card-inner">
+                <img src="assets/images/depoimentos/depoimento-4.jpg" alt="Depoimento no WhatsApp de Carlos: malha fechada de alta qualidade e suportes que soltam com a mão" class="prints-img" loading="lazy" width="472" height="1024">
+              </div>
+            </div>
+
+            <!-- Print 5: Mariana Aluna (Oratório) -->
+            <div class="prints-card" data-index="4">
+              <div class="prints-card-inner">
+                <img src="assets/images/depoimentos/depoimento-5.jpg" alt="Foto de oratório Sagrado Coração com terço e agradecimento da cliente Mariana" class="prints-img" loading="lazy" width="472" height="1024">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Botão Navegação Próximo -->
+        <button class="prints-nav-btn next" id="prints-next" aria-label="Próximo depoimento">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Indicadores de Pontos (Dots) -->
+      <div class="prints-dots" id="prints-dots">
+        <button class="prints-dot active" data-index="0" aria-label="Slide 1"></button>
+        <button class="prints-dot" data-index="1" aria-label="Slide 2"></button>
+        <button class="prints-dot" data-index="2" aria-label="Slide 3"></button>
+        <button class="prints-dot" data-index="3" aria-label="Slide 4"></button>
+        <button class="prints-dot" data-index="4" aria-label="Slide 5"></button>
+      </div>
+
+      <!-- CTA de Confiança / Ação -->
+      <div class="prints-cta-wrap">
+        <a href="#planos" class="btn-cta btn-cta-compact" id="prints-cta-btn">
+          <span>QUERO ESSES RESULTADOS NA MINHA IMPRESSORA</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <div class="btn-cta-subtext">
+          <span>🔒 Garantia incondicional de 7 dias</span>
+          <span class="bullet">•</span>
+          <span>⚡ Acesso imediato no e-mail</span>
+          <span class="bullet">•</span>
+          <span>📁 +500 Arquivos Testados</span>
+        </div>
+      </div>
+
     </div>
   </section>
 

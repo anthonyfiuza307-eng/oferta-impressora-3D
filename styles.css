@@ -331,10 +331,50 @@ ul {
   backdrop-filter: blur(6px);
 }
 
-/* Container da Imagem Centralizada com Fundo Integrado */
+/* ==========================================================================
+   VSL (VÍDEO DE VENDAS DE ALTA CONVERSÃO) - HERO SECTION
+   ========================================================================== */
+.vsl-wrapper {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vsl-container {
+  width: 100%;
+  max-width: 780px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  background: #060910;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 25px rgba(212, 175, 55, 0.1);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.vsl-container iframe,
+.vsl-container video,
+.vsl-video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: cover;
+  display: block;
+  background: #000;
+  outline: none;
+}
+
+/* Container legado mantido por compatibilidade */
 .hero-media-wrapper {
   width: 100%;
-  max-width: 680px;
+  max-width: 780px;
   margin: 0 auto 28px;
   display: flex;
   flex-direction: column;
@@ -353,7 +393,7 @@ ul {
 
 .hero-main-img {
   width: 100%;
-  max-width: 680px;
+  max-width: 780px;
   height: auto;
   object-fit: contain;
   display: block;
@@ -365,10 +405,10 @@ ul {
   transform: scale(1.02);
 }
 
-/* Diferenciais Reposicionados Logo Abaixo da Imagem (Sem Poluir a Foto) */
+/* Diferenciais Reposicionados Logo Abaixo do Player (Sem Poluir o Vídeo) */
 .hero-image-badges {
   width: 100%;
-  max-width: 680px;
+  max-width: 780px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
@@ -750,6 +790,197 @@ ul {
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+
+/* ==========================================================================
+   CARROSSEL DE DEPOIMENTOS / PROVA SOCIAL (PRINTS WHATSAPP)
+   ========================================================================== */
+.prints-testimonials-section {
+  padding: 85px 0 65px;
+  background: radial-gradient(circle at 50% 20%, rgba(229, 193, 88, 0.05) 0%, transparent 60%),
+              linear-gradient(180deg, #090d14 0%, #0d121c 50%, #090d14 100%);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(229, 193, 88, 0.12);
+  border-bottom: 1px solid rgba(229, 193, 88, 0.1);
+}
+
+.prints-tag {
+  background: rgba(229, 193, 88, 0.1);
+  border: 1px solid rgba(229, 193, 88, 0.35);
+  color: #ffd54a;
+  box-shadow: 0 0 16px rgba(229, 193, 88, 0.12);
+}
+
+.prints-tag-star {
+  color: #ffd54a;
+  filter: drop-shadow(0 0 4px rgba(229, 193, 88, 0.5));
+}
+
+.prints-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prints-carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 24px 0 34px;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+.prints-carousel-container:active {
+  cursor: grabbing;
+}
+
+.prints-carousel-track {
+  display: flex;
+  gap: 22px;
+  width: max-content;
+  align-items: center;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.prints-card {
+  flex: 0 0 270px;
+  width: 270px;
+  max-width: 80vw;
+  border-radius: 16px;
+  background: #0b0f18;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.4s ease, opacity 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0.55;
+  transform: scale(0.92);
+}
+
+.prints-card.active {
+  opacity: 1;
+  transform: scale(1.02);
+  border-color: rgba(229, 193, 88, 0.45);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.8), 0 0 28px rgba(229, 193, 88, 0.18);
+  z-index: 2;
+}
+
+.prints-card:hover:not(.active) {
+  opacity: 0.8;
+  transform: scale(0.95);
+}
+
+.prints-card-inner {
+  width: 100%;
+  aspect-ratio: 472 / 1024;
+  background: #060910;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.prints-img {
+  width: 100%;
+  height: 100% !important;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  background: #0b0f18;
+}
+
+/* Setas de Navegação */
+.prints-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(13, 18, 27, 0.9);
+  border: 1px solid rgba(229, 193, 88, 0.4);
+  color: #ffd54a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+}
+
+.prints-nav-btn:hover {
+  background: rgba(229, 193, 88, 0.25);
+  border-color: #ffd54a;
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75), 0 0 18px rgba(229, 193, 88, 0.35);
+}
+
+.prints-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.prints-nav-btn.prev {
+  left: -20px;
+}
+
+.prints-nav-btn.next {
+  right: -20px;
+}
+
+/* Pontos Indicadores (Dots) */
+.prints-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  margin-bottom: 34px;
+}
+
+.prints-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.prints-dot:hover {
+  background: rgba(229, 193, 88, 0.6);
+}
+
+.prints-dot.active {
+  width: 28px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #d4af37, #ffd54a);
+  box-shadow: 0 0 12px rgba(229, 193, 88, 0.65);
+}
+
+/* CTA e Micro-copy */
+.prints-cta-wrap {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
 }
 
 /* ==========================================================================
@@ -1968,6 +2199,7 @@ ul {
     height: auto !important;
   }
 
+  .vsl-wrapper,
   .hero-media-wrapper {
     max-width: 100%;
     margin-bottom: 24px;
